@@ -91,3 +91,24 @@ hr {
 .actions {
     text-align: center;
 }
+
+@media only screen and (max-width: 1279px) {
+    body {
+        background-size: auto 50%;
+        background-repeat: repeat-y;
+        margin: 10px 0;
+    }
+    h1 {
+        width: 350px;
+        line-height: 50px;
+        margin: 10px;
+    }
+    fieldset {
+        margin: 0 10px 0 10px;
+        display: block;
+        float: initial;
+    }
+    fieldset.results {
+        margin-top: 10px;
+    }
+}
