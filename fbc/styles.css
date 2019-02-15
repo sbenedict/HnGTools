@@ -1,0 +1,76 @@
+body {
+    max-width: 1920px;
+    font-family: sans-serif;
+    font-size: 10pt;
+    line-height: 25pt;
+    background-color: #252925;
+    background-image: url(Battle_Flow_NewHelmets-wallpaper720p.jpg);
+    background-repeat: no-repeat;
+    background-position: top left;
+    color: #dddddd;
+    margin: 50px 0 0 0;
+}
+h1 {
+    width: 1260px;
+    background-color: #252925d0;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #dddddd;
+    padding: 16pt 0;
+    margin: 50px 8px;
+    text-align: center;
+    font-size: 48px;
+}
+.logo {
+    height: 45px;
+    display: inline-block;
+    margin-bottom: -7px;
+    margin-right: 10px;
+}
+fieldset {
+    width: 350px;
+    float: left;
+    background-color: #252925d0;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #dddddd;
+    margin: 0 36px 8px 36px;
+    padding: 16px 0 16px 0;
+}
+label {
+    display: inline-block;
+    width: 200px;
+    margin-right: 5px;
+    text-align: right;
+}
+select {
+    background-color: #cccccc;
+}
+input[type=number] {
+    width: 55px;
+    background-color: #cccccc;
+    padding-left: 10px;
+}
+hr {
+    border-style: solid;
+    border-width: 0 0 1px 0;
+    height: 0;
+    margin: 12px 0;
+}
+.result {
+    width: 50pt;
+    display: inline-block;
+    background-color: #cccccc;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.yes {
+    background-color: green;
+    color: #cccccc;
+}
+.no {
+    background-color: red;
+    color: #cccccc;
+}
