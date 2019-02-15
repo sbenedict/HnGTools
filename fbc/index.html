@@ -26,7 +26,13 @@
                 padding: 16pt 0;
                 margin: 50px 8px;
                 text-align: center;
-                font-size: 32pt;
+                font-size: 48px;
+            }
+            .logo {
+                height: 45px;
+                display: inline-block;
+                margin-bottom: -7px;
+                margin-right: 10px;
             }
             fieldset {
                 width: 350px;
@@ -164,7 +170,12 @@ hngfbcApp.controller('FbcController', function FbcController($scope) {
 
     <body ng-controller="FbcController">
 
-        <h1>Heroes &amp; Generals Fun Battle Calculator</h1>
+        <h1>
+            <img class="logo"
+                src="https://static.heroesandgenerals.com/wp-content/themes/heroesandgenerals/assets/images/logos/inline.svg"
+                alt="Heroes &amp; Generals WWII"
+            />
+            Fun Battle Calculator</h1>
 
         <fieldset class="inputs">
 
