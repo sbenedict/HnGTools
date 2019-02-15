@@ -73,3 +73,34 @@ hngfbcApp.controller('FbcController', function FbcController($scope) {
         }
     );
 });
+
+// heaven please forgive me for this kludgy code below
+
+$(function() {
+    $('input[type=number]').parent('label').on("mousewheel", function(event) {
+        event.preventDefault();
+
+        let $this = $(this);
+        if ($this.is('input') == false) $this = $this.find('input[type=number]');
+
+        let inc = parseFloat($this.attr('step'));
+        let max = parseFloat($this.attr('max'));
+        let min = parseFloat($this.attr('min'));
+        let currVal = parseFloat($this.val());
+
+        if (isNaN(currVal))  currVal = 0.0;
+        if (isNaN(inc)) inc = 1;
+        if (event.shiftKey) inc *= 10;
+
+        // Increment or decrement numeric based on scroll distance
+        if (event.deltaFactor * event.deltaY > 0) {
+            if (isNaN(max) || currVal + inc <= max) {
+                $this.val(currVal + inc).trigger("change");
+            }
+        } else {
+            if (isNaN(min) || currVal - inc >= min) {
+                $this.val(currVal - inc).trigger("change");
+            }
+        }
+    });
+});

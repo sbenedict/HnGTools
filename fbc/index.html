@@ -5,6 +5,8 @@
         <meta name="author" content="psam" />
         <meta name="copyright" content="© 2019" />
         <link rel="stylesheet" type="text/css" href="styles.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.7/angular.js"></script>
         <script src="hngfpcApp.js"></script>
     </head>
@@ -21,43 +23,60 @@
         <fieldset class="inputs">
 
             <div>
-                <label>Battle Type</label>
-                <select ng-model="inputs.battleType">
-                    <option value="0">Assault</option>
-                    <option value="1">Encounter</option>
-                    <option value="2">3-Way Assault</option>
-                </select>
+                <label>
+                    <span class="label">Battle Type</span>
+                    <select ng-model="inputs.battleType">
+                        <option value="0">Assault</option>
+                        <option value="1">Encounter</option>
+                        <option value="2">3-Way Assault</option>
+                    </select>
+                </label>
             </div>
 
             <hr />
 
             <div>
-                <label>Infantry</label>
-                <input type="number" ng-model="inputs.infantry" min="0" />
+                <label>
+                    <span class="label">Infantry</span>
+                    <input type="number" ng-model="inputs.infantry" min="0" />
+                    <img class="icon" src="icons/Infantry.png" />
+                </label>
             </div>
 
             <hr />
 
             <div>
-                <label>Recons</label>
-                <input type="number" ng-model="inputs.recons" min="0" />
+                <label>
+                    <span class="label">Recons</span>
+                    <input type="number" ng-model="inputs.recons" min="0" />
+                    <img class="icon" src="icons/Recon.png" />
+                </label>
             </div>
 
             <hr />
 
             <div>
-                <label>Paratroopers Grounded</label>
-                <input type="number" ng-model="inputs.paratroopers" min="0" />
+                <label>
+                    <span class="label">Paratroopers Grounded</span>
+                    <input type="number" ng-model="inputs.paratroopers" min="0" />
+                    <img class="icon" src="icons/Paratroopers.png" />
+                </label>
             </div>
 
             <div>
-                <label>Paratroopers Airborne</label>
-                <input type="number" ng-model="inputs.paratroopersAirborne" min="0" />
+                <label>
+                    <span class="label">Paratroopers Airborne</span>
+                    <input type="number" ng-model="inputs.paratroopersAirborne" min="0" />
+                    <img class="icon" src="icons/Paratroopers.png" />
+                </label>
             </div>
 
             <div>
-                <label>Transport Planes</label>
-                <input type="number" ng-model="inputs.transportPlanes" min="0" />
+                <label>
+                    <span class="label">Transport Planes</span>
+                    <input type="number" ng-model="inputs.transportPlanes" min="0" />
+                    <img class="icon" src="icons/TransportPlanes.png" />
+                </label>
             </div>
 
         </fieldset>
@@ -65,55 +84,85 @@
 
 
             <div>
-                <label>Tank Crewmen</label>
-                <input type="number" ng-model="inputs.tankCrewmen" min="0" />
+                <label>
+                    <span class="label">Tank Crewmen</span>
+                    <input type="number" ng-model="inputs.tankCrewmen" min="0" />
+                    <img class="icon" src="icons/TankCrew.png" />
+                </label>
             </div>
 
             <div>
-                <label>Light Tanks</label>
-                <input type="number" ng-model="inputs.tanksLight" min="0" />
+                <label>
+                    <span class="label">Light Tanks</span>
+                    <input type="number" ng-model="inputs.tanksLight" min="0" />
+                    <img class="icon" src="icons/TankLight.png" />
+                </label>
             </div>
 
             <div>
-                <label>Medium Tanks</label>
-                <input type="number" ng-model="inputs.tanksMedium" min="0" />
+                <label>
+                    <span class="label">Medium Tanks</span>
+                    <input type="number" ng-model="inputs.tanksMedium" min="0" />
+                    <img class="icon" src="icons/TankMedium.png" />
+                </label>
             </div>
 
             <div>
-                <label>Tank Destroyers</label>
-                <input type="number" ng-model="inputs.tanksTD" min="0" />
+                <label>
+                    <span class="label">Tank Destroyers</span>
+                    <input id="input10" type="number" ng-model="inputs.tanksTD" min="0" />
+                    <img class="icon" src="icons/TankTD.png" />
+                </label>
             </div>
 
             <div>
-                <label>Heavy Tanks</label>
-                <input type="number" ng-model="inputs.tanksHeavy" min="0" />
+                <label>
+                    <span class="label">Heavy Tanks</span>
+                    <input id="input11" type="number" ng-model="inputs.tanksHeavy" min="0" />
+                    <img class="icon" src="icons/TankHeavy.png" />
+                </label>
             </div>
 
             <div>
-                <label>Heavy Tank Destroyers</label>
-                <input type="number" ng-model="inputs.tanksHTD" min="0" />
+                <label>
+                    <span class="label">Heavy Tank Destroyers</span>
+                    <input id="input12" type="number" ng-model="inputs.tanksHTD" min="0" />
+                    <img class="icon" src="icons/TankHeavyTD.png" />
+                </label>
             </div>
 
             <hr />
 
             <div>
-                <label>Pilots</label>
-                <input type="number" ng-model="inputs.pilots" min="0" />
+                <label>
+                    <span class="label">Pilots</span>
+                    <input id="input13" type="number" ng-model="inputs.pilots" min="0" />
+                    <img class="icon" src="icons/Pilots.png" />
+                </label>
             </div>
 
             <div>
-                <label>Recon Planes</label>
-                <input type="number" ng-model="inputs.planesLight" min="0" />
+                <label>
+                    <span class="label">Recon Planes</span>
+                    <input id="input14" type="number" ng-model="inputs.planesLight" min="0" />
+                    <img class="icon" src="icons/PlanesLight.png" />
+                </label>
             </div>
 
             <div>
-                <label>Medium Fighters</label>
-                <input type="number" ng-model="inputs.planesMedium" min="0" />
+                <label>
+                    <span class="label">Medium Fighters</span>
+                    <input id="input15" type="number" ng-model="inputs.planesMedium" min="0" />
+                    <img class="icon" src="icons/PlanesMedium.png" />
+                </label>
             </div>
 
             <div>
-                <label>Heavy Fighters</label>
-                <input type="number" ng-model="inputs.planesHeavy" min="0" />
+                <label>
+                    <span class="label">Heavy Fighters</span>
+                    <input id="input16" type="number" ng-model="inputs.planesHeavy" min="0" />
+                    <img class="icon" src="icons/PlanesHeavy.png" />
+                </label>
             </div>
 
         </fieldset>
@@ -121,22 +170,22 @@
         <fieldset class="results">
 
             <div>
-                <label>Player Tickets</label>
+                <span class="label">Player Tickets</span>
                 <span class="result">{{results.playerTicketsTotal}}</span>
             </div>
 
             <div>
-                <label>Sufficient Infantry/Paratroopers</label>
+                <span class="label">Sufficient Infantry/Paratroopers</span>
                 <span class="result" ng-class="results.enoughInfPara ? 'yes': 'no'">{{ results.enoughInfPara ? 'yes': 'no' }}</span>
             </div>
 
             <div>
-                <label>Sufficient Transport Planes</label>
+                <span class="label">Sufficient Transport Planes</span>
                 <span class="result" ng-class="results.enoughTransPlanes ? 'yes': 'no'">{{ results.enoughTransPlanes ? 'yes': 'no' }}</span>
             </div>
 
             <div>
-                <label>Fun Battle</label>
+                <span class="label">Fun Battle</span>
                 <span class="result" ng-class="results.isFunBattle ? 'yes': 'no'">{{ results.isFunBattle ? 'yes': 'no' }}</span>
             </div>
 
