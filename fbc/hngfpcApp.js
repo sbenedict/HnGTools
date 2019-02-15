@@ -64,6 +64,8 @@ hngfbcApp.controller('FbcController', function FbcController($scope) {
                 + r.playerTicketsTanks
                 + r.playerTicketsPlanes;
 
+            r.enoughTickets = (r.playerTicketsTotal >= r.playerTicketsRequired);
+
             r.enoughInfPara = ( (r.playerTicketsInfantry + r.playerTicketsParatroopers) >= r.playerTicketsRequired / 2 );
 
             var transportPlaneTickets = Math.floor(i.transportPlanes / 4);
@@ -75,7 +77,7 @@ hngfbcApp.controller('FbcController', function FbcController($scope) {
             var requiredTransportPlanes = 0;
             r.enoughTransPlanes = (i.transportPlanes >= requiredTransportPlanes);
 
-            r.isFunBattle = r.enoughInfPara && (r.playerTicketsTotal >= r.playerTicketsRequired);
+            r.isFunBattle = r.enoughInfPara && r.enoughTickets;
         }
     );
 });

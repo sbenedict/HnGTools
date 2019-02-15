@@ -170,22 +170,26 @@
 
             <div>
                 <span class="label">Player Tickets</span>
-                <span class="result">{{results.playerTicketsTotal}} / {{results.playerTicketsRequired}}</span>
+                <span class="result" ng-class="results.enoughTickets ? 'yes': 'no'">
+                    {{results.playerTicketsTotal}} / {{results.playerTicketsRequired}}</span>
             </div>
 
             <div>
                 <span class="label">Sufficient Infantry/Paratroopers</span>
-                <span class="result" ng-class="results.enoughInfPara ? 'yes': 'no'">{{ results.enoughInfPara ? 'yes': 'no' }}</span>
+                <span class="result" ng-class="results.enoughInfPara ? 'yes': 'no'">
+                    {{ results.enoughInfPara ? 'yes': 'no' }}</span>
             </div>
 
             <div>
                 <span class="label">Sufficient Transport Planes</span>
-                <span class="result" ng-class="results.enoughTransPlanes ? 'yes': 'no'">{{ results.enoughTransPlanes ? 'yes': 'no' }}</span>
+                <span class="result" ng-class="results.enoughTransPlanes ? 'yes': 'no'">
+                    {{ results.enoughTransPlanes ? 'yes': 'no' }}</span>
             </div>
 
             <div>
                 <span class="label">Fun Battle</span>
-                <span class="result" ng-class="results.isFunBattle ? 'yes': 'no'">{{ results.isFunBattle ? 'yes': 'no' }}</span>
+                <span class="result" ng-class="results.isFunBattle ? 'yes': 'no'">
+                    {{ results.isFunBattle ? 'yes': 'no' }}</span>
             </div>
 
             <hr />
