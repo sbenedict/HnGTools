@@ -2,39 +2,32 @@ var hngfbcApp = angular.module('hngfbcApp', []);
 
 hngfbcApp.controller('FbcController', function FbcController($scope) {
     angular.extend($scope, {
-        inputs: {
-            battleType: "0",
-            infantry: 0,
-            recons: 0,
-            paratroopers: 0,
-            paratroopersAirborne: 0,
-            transportPlanes: 0,
-            tankCrewmen: 0,
-            tanksLight: 0,
-            tanksMedium: 0,
-            tanksHeavy: 0,
-            tanksTD: 0,
-            tanksHTD: 0,
-            pilots: 0,
-            planesLight: 0,
-            planesMedium: 0,
-            planesHeavy: 0
-        },
-
-        results: {
-            playerTicketsInfantry: 0,
-            playerTicketsParatroopers: 0,
-            playerTicketsRecons: 0,
-            playerTicketsTanks: 0,
-            playerTicketsPlanes: 0,
-            playerTicketsTotal: 0,
-            playerTicketsRequired: 0,
-
-            enoughInfPara: false,
-            enoughTransPlanes: false,
-            isFunBattle: false
+        inputs: {},
+        results: {},
+        clear: function () {
+            angular.extend($scope.inputs,
+                {
+                    battleType: "0",
+                    infantry: 0,
+                    recons: 0,
+                    paratroopers: 0,
+                    paratroopersAirborne: 0,
+                    transportPlanes: 0,
+                    tankCrewmen: 0,
+                    tanksLight: 0,
+                    tanksMedium: 0,
+                    tanksHeavy: 0,
+                    tanksTD: 0,
+                    tanksHTD: 0,
+                    pilots: 0,
+                    planesLight: 0,
+                    planesMedium: 0,
+                    planesHeavy: 0
+                });
         }
     });
+
+    $scope.clear();
 
     $scope.$watchCollection('inputs',
         function(newValue) {

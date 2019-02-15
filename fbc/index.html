@@ -16,11 +16,10 @@
         <h1>
             <img class="logo"
                 src="images/hnglogo-inline.svg"
-                alt="Heroes &amp; Generals WWII"
-            />
+                alt="Heroes &amp; Generals WWII" />
             Fun Battle Calculator</h1>
 
-        <fieldset class="inputs">
+        <fieldset class="inputs" ng-cloak>
 
             <div>
                 <label>
@@ -80,8 +79,8 @@
             </div>
 
         </fieldset>
-        <fieldset class="inputs">
 
+        <fieldset class="inputs" ng-cloak>
 
             <div>
                 <label>
@@ -167,7 +166,7 @@
 
         </fieldset>
 
-        <fieldset class="results">
+        <fieldset class="results" ng-cloak>
 
             <div>
                 <span class="label">Player Tickets</span>
@@ -189,6 +188,11 @@
                 <span class="result" ng-class="results.isFunBattle ? 'yes': 'no'">{{ results.isFunBattle ? 'yes': 'no' }}</span>
             </div>
 
+            <hr />
+
+            <div class="actions">
+                <button ng-click="clear()">Clear</button>
+            </div>
         </fieldset>
 
     </body>
