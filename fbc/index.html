@@ -26,7 +26,7 @@
                 <label>
                     <span class="label">Battle Type</span>
                     <select ng-model="inputs.battleType">
-                        <option value="0">Assault</option>
+                        <option value="0">Assault / Skirmish</option>
                         <option value="1">Encounter</option>
                         <option value="2">3-Way Assault</option>
                     </select>
@@ -171,7 +171,7 @@
 
             <div>
                 <span class="label">Player Tickets</span>
-                <span class="result">{{results.playerTicketsTotal}}</span>
+                <span class="result">{{results.playerTicketsTotal}} / {{results.playerTicketsRequired}}</span>
             </div>
 
             <div>

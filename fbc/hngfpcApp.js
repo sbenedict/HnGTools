@@ -24,10 +24,11 @@ hngfbcApp.controller('FbcController', function FbcController($scope) {
         results: {
             playerTicketsInfantry: 0,
             playerTicketsParatroopers: 0,
+            playerTicketsRecons: 0,
             playerTicketsTanks: 0,
             playerTicketsPlanes: 0,
-            playerTicketsOther: 0,
             playerTicketsTotal: 0,
+            playerTicketsRequired: 0,
 
             enoughInfPara: false,
             enoughTransPlanes: false,
@@ -37,39 +38,51 @@ hngfbcApp.controller('FbcController', function FbcController($scope) {
 
     $scope.$watchCollection('inputs',
         function(newValue) {
-            var inputs = $scope.inputs;
-            var results = $scope.results;
+            var i = $scope.inputs;
+            var r = $scope.results;
 
-            results.playerTicketsInfantry = Math.floor(inputs.infantry / 12);
+            r.playerTicketsRequired = (i.battleType == "0") ? 18 : 12;
 
-            results.playerTicketsParatroopers = Math.floor(inputs.paratroopers / 12);
+            r.playerTicketsInfantry = Math.floor(i.infantry / 12);
 
-            results.playerTicketsTanks = Math.min(
-                Math.floor(inputs.tankCrewmen / 10),
-                Math.floor(inputs.tanksLight / 10)
-            );
+            r.playerTicketsParatroopers = Math.floor(i.paratroopers / 12);
 
-            results.playerTicketsOther = Math.floor(inputs.recons / 10)
-                + Math.floor(inputs.tankCrewmen / 10)
-                + Math.floor(inputs.pilots / 10);
+            r.playerTicketsRecons = Math.floor(i.recons / 10);
 
-            results.playerTicketsTotal = results.playerTicketsInfantry
-                + results.playerTicketsParatroopers
-                + results.playerTicketsOther;
+            var playerTicketsTankCrew = Math.floor(i.tankCrewmen / 10);
+            var playerTicketsTanks = 
+                Math.floor(i.tanksLight / 10)
+                + Math.floor(i.tanksMedium / 10)
+                + Math.floor(i.tanksHeavy / 10)
+                + Math.floor(i.tanksTD / 10)
+                + Math.floor(i.tanksHTD / 10);
+            r.playerTicketsTanks = Math.min(playerTicketsTankCrew, playerTicketsTanks);
 
-            var requiredTickets = (inputs.battleType == "0") ? 18 : 12;
-            results.enoughInfPara = ( (results.playerTicketsInfantry + results.playerTicketsParatroopers) >= requiredTickets / 2 );
+            var playerTicketsPilots = Math.floor(i.pilots / 10);
+            var playerTicketsPlanes =
+                Math.floor(i.planesLight / 10)
+                + Math.floor(i.planesMedium / 10)
+                + Math.floor(i.planesHeavy / 10);
+            r.playerTicketsPlanes = Math.min(playerTicketsPilots, playerTicketsPlanes);
 
-            var transportPlaneTickets = Math.floor(inputs.transportPlanes / 4);
+            r.playerTicketsTotal = r.playerTicketsInfantry
+                + r.playerTicketsParatroopers
+                + r.playerTicketsRecons
+                + r.playerTicketsTanks
+                + r.playerTicketsPlanes;
 
-            var neededParaTickets = (requiredTickets / 2 - results.playerTicketsInfantry > 0);
+            r.enoughInfPara = ( (r.playerTicketsInfantry + r.playerTicketsParatroopers) >= r.playerTicketsRequired / 2 );
+
+            var transportPlaneTickets = Math.floor(i.transportPlanes / 4);
+
+            var neededParaTickets = (r.playerTicketsRequired / 2 - r.playerTicketsInfantry > 0);
             if (true) {
 
             }
             var requiredTransportPlanes = 0;
-            results.enoughTransPlanes = (inputs.transportPlanes >= requiredTransportPlanes);
+            r.enoughTransPlanes = (i.transportPlanes >= requiredTransportPlanes);
 
-            results.isFunBattle = results.enoughInfPara && (results.playerTicketsTotal >= requiredTickets);
+            r.isFunBattle = r.enoughInfPara && (r.playerTicketsTotal >= r.playerTicketsRequired);
         }
     );
 });
