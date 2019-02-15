@@ -57,7 +57,7 @@
             <div>
                 <label>
                     <span class="label">Paratroopers Grounded</span>
-                    <input type="number" ng-model="inputs.paratroopers" min="0" />
+                    <input type="number" ng-model="inputs.paras" min="0" />
                     <img class="icon" src="images/icons/Paratroopers.png" />
                 </label>
             </div>
@@ -65,7 +65,7 @@
             <div>
                 <label>
                     <span class="label">Paratroopers Airborne</span>
-                    <input type="number" ng-model="inputs.paratroopersAirborne" min="0" />
+                    <input type="number" ng-model="inputs.parasAirborne" min="0" />
                     <img class="icon" src="images/icons/Paratroopers.png" />
                 </label>
             </div>
@@ -171,19 +171,13 @@
             <div>
                 <span class="label">Player Tickets</span>
                 <span class="result" ng-class="results.enoughTickets ? 'yes': 'no'">
-                    {{results.playerTicketsTotal}} / {{results.playerTicketsRequired}}</span>
+                    {{results.ticketsTotal}} / {{results.ticketsRequired}}</span>
             </div>
 
             <div>
                 <span class="label">Sufficient Infantry/Paratroopers</span>
                 <span class="result" ng-class="results.enoughInfPara ? 'yes': 'no'">
                     {{ results.enoughInfPara ? 'yes': 'no' }}</span>
-            </div>
-
-            <div>
-                <span class="label">Sufficient Transport Planes</span>
-                <span class="result" ng-class="results.enoughTransPlanes ? 'yes': 'no'">
-                    {{ results.enoughTransPlanes ? 'yes': 'no' }}</span>
             </div>
 
             <div>
