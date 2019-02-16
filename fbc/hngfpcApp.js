@@ -123,12 +123,14 @@ $(function() {
         if (event.deltaFactor * event.deltaY > 0) {
             if (sel.selectedIndex > 0) {
                 sel.selectedIndex--;
+                $this.trigger("change");
             }
         } else {
             if (sel.selectedIndex < sel.options.length -1) {
                 sel.selectedIndex++;
+                $this.trigger("change");
             }
-        }
+        }``
     }
 
     $('input[type=number],select').parent('label').on("mousewheel", function(event) {
