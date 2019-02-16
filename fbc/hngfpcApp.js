@@ -46,7 +46,7 @@ hngfbcApp.controller('FbcController', function FbcController($scope) {
             r.ticketsRecons = Math.floor(i.recons / 10);
 
             var ticketsTankCrew = Math.floor(i.tankCrewmen / 10);
-            var ticketsTanks = 
+            var ticketsTanks =
                 Math.floor(i.tanksLight / 10)
                 + Math.floor(i.tanksMedium / 10)
                 + Math.floor(i.tanksHeavy / 10)
@@ -85,11 +85,12 @@ hngfbcApp.controller('FbcController', function FbcController($scope) {
 // heaven please forgive me for this kludgy code below
 
 $(function() {
-    $('input[type=number]').parent('label').on("mousewheel", function(event) {
-        event.preventDefault();
 
-        let $this = $(this);
-        if ($this.is('input') == false) $this = $this.find('input[type=number]');
+    function inputNumberMouseWheel(elmt, event) {
+        let $this = $(elmt);
+
+        if (!$this.is('input[type=number]')) return;
+        event.preventDefault();
 
         let inc = parseFloat($this.attr('step'));
         let max = parseFloat($this.attr('max'));
@@ -110,5 +111,34 @@ $(function() {
                 $this.val(currVal - inc).trigger("change");
             }
         }
+    }
+
+    function selectMouseWheel(elmt, event) {
+        let $this = $(elmt);
+
+        if (!$this.is('select')) return;
+        event.preventDefault();
+
+        let sel = $this[0];
+        if (event.deltaFactor * event.deltaY > 0) {
+            if (sel.selectedIndex > 0) {
+                sel.selectedIndex--;
+            }
+        } else {
+            if (sel.selectedIndex < sel.options.length -1) {
+                sel.selectedIndex++;
+            }
+        }
+    }
+
+    $('input[type=number],select').parent('label').on("mousewheel", function(event) {
+
+        let $this = $(this);
+        if ($this.is('input') == false) $this = $this.find('input[type=number]');
+        if ($this.is('input')) inputNumberMouseWheel($this[0], event);
+
+        $this = $(this);
+        if ($this.is('select') == false) $this = $this.find('select');
+        if ($this.is('select')) selectMouseWheel($this[0], event);
     });
 });
