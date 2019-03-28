@@ -3,7 +3,7 @@
     "name": "H&G Fun Battle Calculator",
     "icons": [
       {
-        "src": "/images/appicon.png",
+        "src": "images/appicon.png",
         "type": "image/png",
         "sizes": "256x256"
       }
