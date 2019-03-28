@@ -1,0 +1,17 @@
+{
+    "short_name": "H&G Fun Battle Calc",
+    "name": "H&G Fun Battle Calculator",
+    "icons": [
+      {
+        "src": "/images/appicon.png",
+        "type": "image/png",
+        "sizes": "256x256"
+      }
+    ],
+    "start_url": "/fbc/",
+    "background_color": "#252925",
+    "display": "standalone",
+    "scope": "/fbc/",
+    "theme_color": "#252925"
+  }
+  
