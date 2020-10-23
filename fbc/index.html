@@ -28,7 +28,7 @@
                          compact.forEach((item) => item.className = 'inputs');
                          compact = document.querySelector('.options.compact');
                          document.querySelector('.options').className = 'options compact';
-                         compact.className = 'options';">
+                         (compact||{}).className = 'options';">
         </div>
 
         <fieldset class="inputs compact" ng-cloak>
