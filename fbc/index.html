@@ -21,7 +21,17 @@
                 alt="Heroes &amp; Generals WWII" />
             Fun Battle Calculator</h1>
 
-        <fieldset class="inputs" ng-cloak>
+        <div class="options compact">
+            <img class="compactMode" src="about:blank"
+                onclick="var compact = document.querySelectorAll('.inputs.compact');
+                         document.querySelectorAll('.inputs').forEach((item) => item.className = 'inputs compact');
+                         compact.forEach((item) => item.className = 'inputs');
+                         compact = document.querySelector('.options.compact');
+                         document.querySelector('.options').className = 'options compact';
+                         compact.className = 'options';">
+        </div>
+
+        <fieldset class="inputs compact" ng-cloak>
 
             <div>
                 <label>
@@ -44,7 +54,7 @@
                 </label>
             </div>
 
-            <hr />
+            <hr class="compact-hide"/>
 
             <div>
                 <label>
@@ -63,6 +73,8 @@
                     <img class="icon" src="images/icons/Paratroopers.png" />
                 </label>
             </div>
+            
+            <div class="spacer"></div>
 
             <div>
                 <label>
@@ -82,7 +94,7 @@
 
         </fieldset>
 
-        <fieldset class="inputs" ng-cloak>
+        <fieldset class="inputs compact" ng-cloak>
 
             <div>
                 <label>
