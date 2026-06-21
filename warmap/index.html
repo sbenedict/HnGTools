@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>psam's HnG-Group War Map Tile Debugger</title>
+
+    <style>
+/**
+ * @license
+ * Copyright 2024 Google LLC. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+ 
+/* 
+ * Always set the map height explicitly to define the size of the div element
+ * that contains the map. 
+ */
+#map {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* 
+ * Optional: Makes the sample page fill the window. 
+ */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#info {
+  z-index: 1;
+  position:fixed;
+  top: 20%;
+  left: 5pt;
+  width: fit-content;
+  height: fit-content;
+  padding: 2pt;
+  background-color: #0000005a;
+  color: #ffffff;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 100%;
+}
+#info section:not(:first-of-type) {
+  margin-top: 4pt;
+  padding-top: 4pt;
+  border-top: #0000005a solid 2pt;
+}
+#info label {
+  display: block;
+}
+input[type=number] {
+  display: block;
+  width: calc(100% - 0.5em);
+  padding: 1pt;
+}
+    </style>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=weekly&callback=init&key=AIzaSyAwYEBAkoTFb0hl-7cJh7zeqkUkPZLDanM" defer></script>
+
+  </head>
+  <body>
+    <div id="info">
+      <section>
+        <label><span><input id="info-grid" type="checkbox" checked="true" /></span> Grid</label>
+        <label>UI Zoom: <span><input id="info-map-zoom" type="number" min="25" max="9000" step="25" value="100" /></span></label>
+      </section>
+      <section>
+        <caption></caption>
+        <label>Zoom: <span id="info-zoom"></span></label>
+        <label>X: <span id="info-x"></span></label>
+        <label>Y: <span id="info-y"></span></label>
+      </section>
+    </div>
+    <div id="map"></div>
+
+    <script>
+let map;
+let infoWindow;
+
+async function init() {
+  initControls();
+  initMap();
+}
+
+async function initControls() {
+  const mapElmt = document.getElementById('map');
+
+  document.getElementById('info-map-zoom')
+    .addEventListener('change', ({target}) => {
+    let newValue = target.value;
+    newValue = Math.max(25, newValue);
+    mapElmt.style.zoom = newValue + '%';
+  });
+}
+
+async function initMap() {
+  const {ImageMapType, MapTypeId, MapType, MapTypeControlStyle} = await google.maps.importLibrary("maps")
+
+  const imageMapTypes = [
+    ["diffuse",         "Diffuse",        "diffuse"],
+    ["lightmap",        "Lightmap",       "lightmap"],
+  ];
+
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: 83, lng: -158 },
+    zoom: 5,
+    streetViewControl: false,
+    
+    mapTypeControlOptions: {
+      mapTypeIds: imageMapTypes.map(([mapId]) => mapId)
+    },
+  });
+
+  function getMapTileFactory(hostUrl, layer, image)
+  {
+    return (coord, zoom) => getMapTile(coord, zoom, hostUrl, layer, image);
+  } 
+
+  function getMapTile(coord, zoom, hostUrl, layer, image) {
+    const normalizedCoord = getNormalizedCoord(coord, zoom);
+
+    if (!normalizedCoord) {
+      return "";
+    }
+    const bound = 1 << zoom;
+
+    const tileIndex = normalizedCoord.x + (bound * normalizedCoord.y)
+    const tileIndexStr = ("00000" + tileIndex).slice(-6,); 
+    return (
+      hostUrl + "/map/004/jpg/" + layer + "/CampaignMap_Europe_" + image + "_zoom" +
+      zoom +
+      "." +
+      tileIndexStr + //000048
+      ".jpg"
+    );
+  }
+
+  const hostUrl = getHostUrl();
+  const tileSize = getTileSize();
+
+  imageMapTypes.map(([mapId, mapName, mapImage, maxZoom]) => {
+    const mapType = new google.maps.ImageMapType({
+        getTileUrl: getMapTileFactory(hostUrl, mapId, mapImage),
+        tileSize: new google.maps.Size(tileSize, tileSize),
+        maxZoom: maxZoom || 8,
+        minZoom: 2,
+        radius: radiusEarth, // default
+        name: mapName,
+    });
+	  map.mapTypes.set(mapId, mapType);
+	  return null;
+  });
+
+  map.setMapTypeId(imageMapTypes[0][0]);
+
+  addCoordMap(map, tileSize);
+
+  const zoomLabel = document.getElementById("info-zoom");
+  const xLabel = document.getElementById("info-x"); 
+  const yLabel = document.getElementById("info-y");
+  google.maps.event.addListener(map, 'zoom_changed', updateInfo);
+  google.maps.event.addListener(map, 'center_changed', updateInfo);
+
+  function updateInfo() {
+    const zoom = map.getZoom();
+    zoomLabel.innerText = "" + zoom; 
+    const center = map.getCenter();
+    xLabel.innerText = "" + center.lat().toFixed(3); 
+    yLabel.innerText = "" + center.lng().toFixed(3);
+  }
+  updateInfo();
+}
+
+function getTileSize() {
+  const defaultTileSize = 256;
+  if (window.location.search.indexOf("ts=") < 0) return defaultTileSize;
+  let x = (1 * window.location.search.split("ts=", 2)[1].split("&", 2)[0]) || defaultTileSize;
+  return x < 32 ? 32 : x > 1024 ? 1024 : x;
+}
+
+function getHostUrl() {
+  let host = "https://l3.live.hng-group.com"; // "https://l3.stable.heroesandgenerals.com";
+  if (window.location.search.indexOf("h=") > -1)
+    host = window.location.search.split("h=", 2)[1].split("&", 2)[0];
+  if (!/^[^:/]+:\/\//.test(host))
+    host = "https://" + host;
+  return host;
+}
+
+// Normalizes the coords that tiles repeat across the x axis (horizontally)
+// like the standard Google map tiles.
+function getNormalizedCoord(coord, zoom) {
+  // tile range in one direction range is dependent on zoom level
+  // 0 = 1 tile, 1 = 2 tiles, 2 = 4 tiles, 3 = 8 tiles, etc
+  const tileRange = 1 << zoom;
+  // don't repeat across y-axis (vertically)
+  if (coord.y < 0 || coord.y >= tileRange) {
+    return null;
+  }
+  return coord;
+}
+
+const radiusEarth = 6378137;
+
+class CoordMapType {
+  tileSize;
+  alt = null;
+  maxZoom = 17;
+  minZoom = 0;
+  name = null;
+  projection = null;
+  radius = radiusEarth;
+  constructor(tileSize) {
+    this.tileSize = tileSize;
+  }
+  getTile(coord, zoom, ownerDocument) {
+    const normalizedCoord = getNormalizedCoord(coord, zoom);
+    if (!normalizedCoord) {
+      return "";
+    }
+    const bound = 1 << zoom;
+    const tileIndex = normalizedCoord.x + (bound * normalizedCoord.y)
+
+    const div = ownerDocument.createElement("div");
+    div.innerHTML = String(coord) + "<br/>" + ("00000" + tileIndex).slice(-6,);
+    div.style.width = this.tileSize.width + "px";
+    div.style.height = this.tileSize.height + "px";
+    div.style.fontSize = "8";
+    div.style.borderStyle = "solid";
+    div.style.borderWidth = "1px";
+    div.style.borderColor = "#AAAAAA";
+    return div;
+  }
+  releaseTile(tile) {}
+}
+
+const gridCheckbox = document.getElementById("info-grid");
+gridCheckbox.addEventListener("change", ({target}) => {
+  if (target.checked) {
+    addCoordMap(map, getTileSize());
+  } else {
+    removeCoordMap(map);
+  }
+});
+
+function addCoordMap(map, tileSize) {
+  const coordMapType = new CoordMapType(new google.maps.Size(tileSize, tileSize));
+  map.overlayMapTypes.insertAt(0, coordMapType);
+}
+
+function removeCoordMap(map) {
+  map.overlayMapTypes.removeAt(0);
+}
+
+    </script>
+  </body>
+</html>
