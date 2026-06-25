@@ -82,11 +82,13 @@ hngfbcApp.controller('FbcController', function FbcController($scope) {
 
             r.isFunBattle = r.enoughInfPara && r.enoughTickets;
 
-            r.missingTickets = 0; 
-            if (r.ticketsTotal < r.ticketsRequired)
+            r.missingTickets = 0;
+            r.missingInfantry = 0;
+            if (r.ticketsTotal < r.ticketsRequired) {
                 r.missingTickets = r.ticketsRequired - r.ticketsTotal;
                 r.missingInfantry = r.missingTickets * 12
                     - ( i.infantry % 12 ); /* infantry not in tickets */
+            }
         }
     );
 });
