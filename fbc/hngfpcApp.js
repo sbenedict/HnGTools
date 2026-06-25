@@ -93,6 +93,15 @@ hngfbcApp.controller('FbcController', function FbcController($scope) {
     );
 });
 
+function switchCompactMode() {
+    var compact = document.querySelectorAll('.inputs.compact');
+    document.querySelectorAll('.inputs').forEach((item) => item.className = 'inputs compact');
+    compact.forEach((item) => item.className = 'inputs');
+    compact = document.querySelector('.options.compact');
+    document.querySelector('.options').className = 'options compact';
+    (compact||{}).className = 'options';
+}
+
 // heaven please forgive me for this kludgy code below
 
 $(function() {

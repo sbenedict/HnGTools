@@ -22,13 +22,7 @@
             Fun Battle Calculator</h1>
 
         <div class="options compact">
-            <img class="compactMode" src="about:blank"
-                onclick="var compact = document.querySelectorAll('.inputs.compact');
-                         document.querySelectorAll('.inputs').forEach((item) => item.className = 'inputs compact');
-                         compact.forEach((item) => item.className = 'inputs');
-                         compact = document.querySelector('.options.compact');
-                         document.querySelector('.options').className = 'options compact';
-                         (compact||{}).className = 'options';">
+            <span class="compactMode" onclick="switchCompactMode()"></span>
         </div>
 
         <fieldset class="inputs compact" ng-cloak>
