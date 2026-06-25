@@ -64,7 +64,7 @@ hngfbcApp.controller('FbcController', function FbcController($scope) {
                 + Math.floor(i.planesHeavy / 10);
             r.ticketsPlanes = Math.min(ticketsPilots, ticketsPlanes);
 
-            if (i.battleType == battleTypeEncounter {
+            if (i.battleType == battleTypeEncounter) {
                 r.ticketsTotal = r.ticketsInfantry;
             }
             else {
