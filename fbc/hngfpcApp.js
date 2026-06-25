@@ -1,7 +1,7 @@
 var hngfbcApp = angular.module('hngfbcApp', []);
 
 hngfbcApp.controller('FbcController', function FbcController($scope) {
-    const battleTypeAssult = "0";
+    const battleTypeAssault = "0";
     const battleTypeEncounter = "1";
 
     angular.extend($scope, {
@@ -10,7 +10,7 @@ hngfbcApp.controller('FbcController', function FbcController($scope) {
         clear: function () {
             angular.extend($scope.inputs,
                 {
-                    battleType: battleTypeAssult,
+                    battleType: battleTypeAssault,
                     infantry: 0,
                     recons: 0,
                     paras: 0,
@@ -37,7 +37,7 @@ hngfbcApp.controller('FbcController', function FbcController($scope) {
             var i = $scope.inputs;
             var r = $scope.results;
 
-            r.ticketsRequired = (i.battleType == battleTypeAssult) ? 18 : 12;
+            r.ticketsRequired = (i.battleType == battleTypeAssault) ? 18 : 12;
 
             r.ticketsInfantry = Math.floor(i.infantry / 12);
 
