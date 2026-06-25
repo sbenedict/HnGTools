@@ -202,6 +202,14 @@
 
             <hr />
 
+            <div>
+                <span class="label">Additional Infantry For Fun</span>
+                <span class="result" ng-class="results.missingInfantry == 0 ? 'yes': 'no'">
+                    {{ results.missingInfantry }}</span>
+            </div>
+
+            <hr />
+
             <div class="actions">
                 <button ng-click="clear()">Clear</button>
             </div>

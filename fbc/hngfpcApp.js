@@ -1,13 +1,16 @@
 var hngfbcApp = angular.module('hngfbcApp', []);
 
 hngfbcApp.controller('FbcController', function FbcController($scope) {
+    const battleTypeAssult = "0";
+    const battleTypeEncounter = "1";
+
     angular.extend($scope, {
         inputs: {},
         results: {},
         clear: function () {
             angular.extend($scope.inputs,
                 {
-                    battleType: "0",
+                    battleType: battleTypeAssult,
                     infantry: 0,
                     recons: 0,
                     paras: 0,
@@ -34,7 +37,7 @@ hngfbcApp.controller('FbcController', function FbcController($scope) {
             var i = $scope.inputs;
             var r = $scope.results;
 
-            r.ticketsRequired = (i.battleType == "0") ? 18 : 12;
+            r.ticketsRequired = (i.battleType == battleTypeAssult) ? 18 : 12;
 
             r.ticketsInfantry = Math.floor(i.infantry / 12);
 
@@ -61,7 +64,7 @@ hngfbcApp.controller('FbcController', function FbcController($scope) {
                 + Math.floor(i.planesHeavy / 10);
             r.ticketsPlanes = Math.min(ticketsPilots, ticketsPlanes);
 
-            if (i.battleType == "1") {
+            if (i.battleType == battleTypeEncounter {
                 r.ticketsTotal = r.ticketsInfantry;
             }
             else {
@@ -78,6 +81,12 @@ hngfbcApp.controller('FbcController', function FbcController($scope) {
             r.enoughInfPara = ( (r.ticketsInfantry + r.ticketsParas + r.ticketsParasAirborne) >= r.ticketsRequired / 2 );
 
             r.isFunBattle = r.enoughInfPara && r.enoughTickets;
+
+            r.missingTickets = 0; 
+            if (r.ticketsTotal < r.ticketsRequired)
+                r.missingTickets = r.ticketsRequired - r.ticketsTotal;
+                r.missingInfantry = r.missingTickets * 12
+                    - ( i.infantry % 12 ); /* infantry not in tickets */
         }
     );
 });

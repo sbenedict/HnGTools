@@ -28,20 +28,20 @@ img.logo {
     margin-right: 10px;
 }
 div.options {
+    width: 350px;
     margin: 10px 8px;
     max-height: 15pt;
 }
-div.options img.compactMode {
-    width: 0px;
-    height: 15px;
+div.options span.compactMode {
+    width: 100px;
 }
-div.options img:after {
+div.options span:after {
     position: absolute;
     margin-left: 10px;
     margin-top: -5px;
     content: "- Compact";
 }
-div.options.compact img:after {
+div.options.compact span:after {
     content: "+ Expand";
 }
 fieldset {
